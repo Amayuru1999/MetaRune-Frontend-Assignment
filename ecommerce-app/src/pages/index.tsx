@@ -2,12 +2,7 @@ import { useRouter } from 'next/router';
 import { useCartStore } from './../store/cartStore';
 import { Button, Card, CardContent, CardMedia, Grid, Typography, Badge, IconButton } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
-const products = [
-    { id: 1, name: 'Product 1', price: 29.99, image: '/product1.jpg' },
-    { id: 2, name: 'Product 2', price: 39.99, image: '/product2.jpg' },
-    // Add at least 10 products
-];
+import { products } from '../data/products'; 
 
 export default function ProductList() {
     const router = useRouter();
