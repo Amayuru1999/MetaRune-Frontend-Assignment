@@ -1,10 +1,7 @@
+// src/app/_app.tsx
+import '../app/globals.css';
+import { AppProps } from 'next/app';
 
-import 'tailwindcss/tailwind.css';
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
     return <Component {...pageProps} />;
 }
-
-export default MyApp;

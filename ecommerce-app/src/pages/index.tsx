@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useCartStore } from './../store/cartStore';
 
 const products = [
     { id: 1, name: 'Product 1', price: 29.99, image: '/product1.jpg' },
@@ -8,19 +8,8 @@ const products = [
 ];
 
 export default function ProductList() {
-    const [cart, setCart] = useState<{ id: number; quantity: number }[]>([]);
-
-    const addToCart = (productId: number) => {
-        setCart((prevCart) => {
-            const existingProduct = prevCart.find((item) => item.id === productId);
-            if (existingProduct) {
-                return prevCart.map((item) =>
-                    item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
-                );
-            }
-            return [...prevCart, { id: productId, quantity: 1 }];
-        });
-    };
+    const addToCart = useCartStore((state) => state.addToCart);
+    const cart = useCartStore((state) => state.cart);
 
     return (
         <div className="container mx-auto">
@@ -39,6 +28,13 @@ export default function ProductList() {
                         </button>
                     </div>
                 ))}
+            </div>
+            <div className="fixed top-0 right-0 m-4">
+                <button className="relative">
+          <span className="bg-red-500 text-white rounded-full px-2 py-1">
+            {cart.reduce((acc, item) => acc + item.quantity, 0)}
+          </span>
+                </button>
             </div>
         </div>
     );
