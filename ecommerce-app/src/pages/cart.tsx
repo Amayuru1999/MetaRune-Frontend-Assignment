@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
 import { useCartStore } from './../store/cartStore';
 import { Button, Card, CardContent, CardMedia, Grid, Typography, IconButton, Box, Divider } from '@mui/material';
-import { Remove as RemoveIcon, Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Remove as RemoveIcon, Add as AddIcon, Delete as DeleteIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import { products } from '../data/products';
 
 export default function Cart() {
+    const router = useRouter(); 
     const cart = useCartStore((state) => state.cart);
     const increaseQuantity = useCartStore((state) => state.increaseQuantity);
     const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
@@ -22,8 +24,13 @@ export default function Cart() {
                 minHeight: '100vh',
             }}
         >
+            <Box mb={2}>
+                <IconButton onClick={() => router.back()} color="primary">
+                    <ArrowBackIcon />
+                </IconButton>
+            </Box>
             <Typography variant="h2" gutterBottom>
-                Cart 
+                Cart
             </Typography>
             {cart.length === 0 ? (
                 <Typography variant="body1">Your cart is empty</Typography>
