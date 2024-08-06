@@ -69,7 +69,7 @@ export default function Cart() {
             )}
             <Divider sx={{ my: 4 }} />
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography variant="h5">Total: ${totalAmount.toFixed(2)}</Typography>
+                <Typography variant="h5">Total: LKR {totalAmount.toFixed(2)}</Typography>
                 <Button variant="contained" color="success">
                     Checkout
                 </Button>

@@ -34,7 +34,7 @@ export default function ProductList() {
                                     {product.name}
                                 </Typography>
                                 <Typography variant="body1" color="textSecondary">
-                                    ${product.price.toFixed(2)}
+                                    LKR {product.price.toFixed(2)}
                                 </Typography>
                                 <Button
                                     variant="contained"
