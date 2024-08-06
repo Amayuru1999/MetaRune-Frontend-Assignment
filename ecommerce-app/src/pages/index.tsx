@@ -1,5 +1,6 @@
-
 import { useCartStore } from './../store/cartStore';
+import { Button, Card, CardContent, CardMedia, Grid, Typography, Badge, IconButton } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const products = [
     { id: 1, name: 'Product 1', price: 29.99, image: '/product1.jpg' },
@@ -10,31 +11,49 @@ const products = [
 export default function ProductList() {
     const addToCart = useCartStore((state) => state.addToCart);
     const cart = useCartStore((state) => state.cart);
+    const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
     return (
-        <div className="container mx-auto">
-            <h1 className="text-2xl font-bold my-4">Product List</h1>
-            <div className="grid grid-cols-4 gap-4">
+        <div style={{ padding: '16px' }}>
+            <Typography variant="h4" gutterBottom>
+                Product List
+            </Typography>
+            <Grid container spacing={4}>
                 {products.map((product) => (
-                    <div key={product.id} className="border p-4">
-                        <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
-                        <h2 className="text-xl font-bold">{product.name}</h2>
-                        <p className="text-lg">${product.price}</p>
-                        <button
-                            className="bg-blue-500 text-white px-4 py-2 mt-2"
-                            onClick={() => addToCart(product.id)}
-                        >
-                            Add to Cart
-                        </button>
-                    </div>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                        <Card>
+                            <CardMedia
+                                component="img"
+                                height="200"
+                                image={product.image}
+                                alt={product.name}
+                            />
+                            <CardContent>
+                                <Typography variant="h6" gutterBottom>
+                                    {product.name}
+                                </Typography>
+                                <Typography variant="body1" color="textSecondary">
+                                    ${product.price.toFixed(2)}
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => addToCart(product.id)}
+                                    style={{ marginTop: '8px' }}
+                                >
+                                    Add to Cart
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 ))}
-            </div>
-            <div className="fixed top-0 right-0 m-4">
-                <button className="relative">
-          <span className="bg-red-500 text-white rounded-full px-2 py-1">
-            {cart.reduce((acc, item) => acc + item.quantity, 0)}
-          </span>
-                </button>
+            </Grid>
+            <div style={{ position: 'fixed', top: 16, right: 16 }}>
+                <IconButton color="primary">
+                    <Badge badgeContent={cartItemCount} color="secondary">
+                        <ShoppingCartIcon />
+                    </Badge>
+                </IconButton>
             </div>
         </div>
     );
