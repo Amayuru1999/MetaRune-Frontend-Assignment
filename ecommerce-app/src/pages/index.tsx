@@ -21,7 +21,7 @@ export default function ProductList() {
             minHeight: '100vh',
         }}>
             <Typography variant="h2" gutterBottom>
-                Store
+                Apple Store
             </Typography>
             <Grid container spacing={4}>
                 {products.map((product) => (
