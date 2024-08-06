@@ -1,5 +1,6 @@
-// src/pages/cart.tsx
 import { useCartStore } from './../store/cartStore';
+import { Button, Card, CardContent, CardMedia, Grid, Typography, IconButton, Box, Divider } from '@mui/material';
+import { Remove as RemoveIcon, Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
 
 const products = [
     { id: 1, name: 'Product 1', price: 29.99, image: '/product1.jpg' },
@@ -19,51 +20,64 @@ export default function Cart() {
     }, 0);
 
     return (
-        <div className="container mx-auto">
-            <h1 className="text-2xl font-bold my-4">Cart</h1>
+        <Box padding={4}>
+            <Typography variant="h4" gutterBottom>
+                Cart
+            </Typography>
             {cart.length === 0 ? (
-                <p>Your cart is empty</p>
+                <Typography variant="body1">Your cart is empty</Typography>
             ) : (
-                <div className="grid grid-cols-1 gap-4">
+                <Grid container spacing={3}>
                     {cart.map((item) => {
                         const product = products.find((product) => product.id === item.id);
                         return (
                             product && (
-                                <div key={item.id} className="border p-4">
-                                    <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
-                                    <h2 className="text-xl font-bold">{product.name}</h2>
-                                    <p className="text-lg">${product.price}</p>
-                                    <div className="flex items-center space-x-2">
-                                        <button
-                                            className="bg-gray-200 px-2 py-1"
-                                            onClick={() => decreaseQuantity(item.id)}
-                                        >
-                                            -
-                                        </button>
-                                        <span>{item.quantity}</span>
-                                        <button
-                                            className="bg-gray-200 px-2 py-1"
-                                            onClick={() => increaseQuantity(item.id)}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                    <button
-                                        className="bg-red-500 text-white px-4 py-2 mt-2"
-                                        onClick={() => removeFromCart(item.id)}
-                                    >
-                                        Remove
-                                    </button>
-                                </div>
+                                <Grid item xs={12} sm={6} md={4} key={item.id}>
+                                    <Card>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image={product.image}
+                                            alt={product.name}
+                                        />
+                                        <CardContent>
+                                            <Typography variant="h6">{product.name}</Typography>
+                                            <Typography variant="body1" color="textSecondary">
+                                                ${product.price.toFixed(2)}
+                                            </Typography>
+                                            <Box display="flex" alignItems="center" mt={2}>
+                                                <IconButton onClick={() => decreaseQuantity(item.id)} color="primary">
+                                                    <RemoveIcon />
+                                                </IconButton>
+                                                <Typography variant="body1" mx={2}>
+                                                    {item.quantity}
+                                                </Typography>
+                                                <IconButton onClick={() => increaseQuantity(item.id)} color="primary">
+                                                    <AddIcon />
+                                                </IconButton>
+                                                <IconButton
+                                                    onClick={() => removeFromCart(item.id)}
+                                                    color="error"
+                                                    sx={{ marginLeft: 'auto' }}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </Box>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
                             )
                         );
                     })}
-                </div>
+                </Grid>
             )}
-            <div className="mt-4">
-                <h2 className="text-2xl font-bold">Total: ${totalAmount.toFixed(2)}</h2>
-                <button className="bg-green-500 text-white px-4 py-2 mt-2">Checkout</button>
-            </div>
-        </div>
+            <Divider sx={{ my: 4 }} />
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="h5">Total: ${totalAmount.toFixed(2)}</Typography>
+                <Button variant="contained" color="success">
+                    Checkout
+                </Button>
+            </Box>
+        </Box>
     );
 }
