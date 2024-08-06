@@ -1,8 +1,7 @@
 import { useCartStore } from './../store/cartStore';
 import { Button, Card, CardContent, CardMedia, Grid, Typography, IconButton, Box, Divider } from '@mui/material';
 import { Remove as RemoveIcon, Add as AddIcon, Delete as DeleteIcon } from '@mui/icons-material';
-import { products } from '../data/products'; 
-
+import { products } from '../data/products';
 
 export default function Cart() {
     const cart = useCartStore((state) => state.cart);
@@ -16,9 +15,15 @@ export default function Cart() {
     }, 0);
 
     return (
-        <Box padding={4}>
-            <Typography variant="h4" gutterBottom>
-                Cart
+        <Box
+            padding={4}
+            sx={{
+                background: 'linear-gradient(135deg, #f5f7fa, #c3cfe2)',
+                minHeight: '100vh',
+            }}
+        >
+            <Typography variant="h2" gutterBottom>
+                Cart 
             </Typography>
             {cart.length === 0 ? (
                 <Typography variant="body1">Your cart is empty</Typography>

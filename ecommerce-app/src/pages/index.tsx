@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useCartStore } from './../store/cartStore';
-import { Button, Card, CardContent, CardMedia, Grid, Typography, Badge, IconButton } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Grid, Typography, Badge, IconButton,Box } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { products } from '../data/products'; 
+import { products } from '../data/products';
 
 export default function ProductList() {
     const router = useRouter();
@@ -15,9 +15,13 @@ export default function ProductList() {
     };
 
     return (
-        <div style={{ padding: '16px' }}>
-            <Typography variant="h4" gutterBottom>
-                Product List
+        <div style={{
+            padding: '16px',
+            background: 'linear-gradient(135deg, #f5f7fa, #c3cfe2)',
+            minHeight: '100vh',
+        }}>
+            <Typography variant="h2" gutterBottom>
+                Store
             </Typography>
             <Grid container spacing={4}>
                 {products.map((product) => (
@@ -49,13 +53,21 @@ export default function ProductList() {
                     </Grid>
                 ))}
             </Grid>
-            <div style={{ position: 'fixed', top: 16, right: 16 }}>
-                <IconButton color="primary" onClick={handleCartClick}>
-                    <Badge badgeContent={cartItemCount} color="secondary">
-                        <ShoppingCartIcon />
-                    </Badge>
-                </IconButton>
-            </div>
+            <Box sx={{ position: 'fixed', top: 16, right: 16 }}>
+            <IconButton
+                color="primary"
+                onClick={handleCartClick}
+                sx={{
+                    width: 56, 
+                    height: 56, 
+                    padding: 0,
+                }}
+            >
+                <Badge badgeContent={cartItemCount} color="secondary" sx={{ width: 40, height: 40 }}>
+                    <ShoppingCartIcon sx={{ fontSize: 32 }} /> {/* Adjust the icon size */}
+                </Badge>
+            </IconButton>
+        </Box>
         </div>
     );
 }
