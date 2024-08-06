@@ -1,7 +1,7 @@
 
 
 export const products = [
-    { id: 1, name: 'Product 1', price: 29.99, image: '/product1.jpg' },
-    { id: 2, name: 'Product 2', price: 39.99, image: '/product2.jpg' },
+    { id: 1, name: 'Apple MAC', price: 29.99, image: './assets/1.png' },
+    { id: 2, name: 'Watch', price: 39.99, image: './assets/2.jpg' },
    
 ];
