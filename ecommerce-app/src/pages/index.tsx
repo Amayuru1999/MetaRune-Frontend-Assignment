@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useCartStore } from './../store/cartStore';
 import { Button, Card, CardContent, CardMedia, Grid, Typography, Badge, IconButton } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -9,9 +10,14 @@ const products = [
 ];
 
 export default function ProductList() {
+    const router = useRouter();
     const addToCart = useCartStore((state) => state.addToCart);
     const cart = useCartStore((state) => state.cart);
     const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+    const handleCartClick = () => {
+        router.push('/cart');
+    };
 
     return (
         <div style={{ padding: '16px' }}>
@@ -49,7 +55,7 @@ export default function ProductList() {
                 ))}
             </Grid>
             <div style={{ position: 'fixed', top: 16, right: 16 }}>
-                <IconButton color="primary">
+                <IconButton color="primary" onClick={handleCartClick}>
                     <Badge badgeContent={cartItemCount} color="secondary">
                         <ShoppingCartIcon />
                     </Badge>
